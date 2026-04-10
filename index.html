@@ -369,30 +369,16 @@
           <input type="email" id="email" placeholder="you@bend-tech.com.au" required>
         </div>
       </div>
-      <div class="two-col">
-        <div class="field">
-          <label for="division">Division <span class="req">*</span></label>
-          <select id="division" required>
-            <option value="">Select division</option>
-            <option value="ROX Australia">ROX Australia</option>
-            <option value="Grizzly">Grizzly</option>
-            <option value="CDEC">CDEC</option>
-            <option value="BT Metals">BT Metals</option>
-            <option value="Bend-tech Group">Bend-tech Group (cross-division)</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="department">Your team <span class="req">*</span></label>
-          <select id="department" required>
-            <option value="">Select team</option>
-            <option value="Sales">Sales</option>
-            <option value="Operations">Operations</option>
-            <option value="Engineering / R&D">Engineering / R&D</option>
-            <option value="Leadership">Leadership</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+      <div class="field">
+        <label for="division">Division <span class="req">*</span></label>
+        <select id="division" required>
+          <option value="">Select division</option>
+          <option value="ROX Australia">ROX Australia</option>
+          <option value="Grizzly">Grizzly</option>
+          <option value="CDEC">CDEC</option>
+          <option value="BT Metals">BT Metals</option>
+          <option value="Bend-tech Group">Bend-tech Group (cross-division)</option>
+        </select>
       </div>
     </div>
 
@@ -522,7 +508,6 @@
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const division = document.getElementById("division").value;
-    const department = document.getElementById("department").value;
     const jobType = document.getElementById("jobType").value;
     const title = document.getElementById("title").value.trim();
     const description = document.getElementById("description").value.trim();
@@ -541,7 +526,6 @@ A marketing job request has been submitted. Your task is to create a Jira issue 
 Here are the details:
 - Requester: ${name} (${email})
 - Division: ${division}
-- Requester's team: ${department}
 - Request type: ${jobType}
 - Title: ${title}
 - Description: ${description}
