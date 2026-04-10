@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Request — Bend-tech Group</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #051e33;
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #ffffff;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .logo-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: #39B54A;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.2px;
+  }
+
+  .logo-text span {
+    color: #6b7280;
+    font-weight: 400;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+    color: #ffffff;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: #9ca3af;
+    line-height: 1.5;
+  }
+
+  .card {
+    background: #083050;
+    border-radius: 12px;
+    border: 1px solid #0e4570;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #39B54A;
+    margin-bottom: 16px;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+
+  .field:last-child {
+    margin-bottom: 0;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #e5e7eb;
+    margin-bottom: 6px;
+  }
+
+  label .req {
+    color: #39B54A;
+    margin-left: 2px;
+  }
+
+  label .hint {
+    font-weight: 400;
+    color: #6b7280;
+    margin-left: 6px;
+    font-size: 12px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #ffffff;
+    background: #051e33;
+    border: 1px solid #0e4570;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #39B54A;
+    background: #051e33;
+  }
+
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  textarea::placeholder {
+    color: #4b5563;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.5;
+  }
+
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+
+  select option {
+    background: #083050;
+    color: #ffffff;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .priority-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .priority-option {
+    position: relative;
+  }
+
+  .priority-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+  }
+
+  .priority-option label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    border: 1px solid #0e4570;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    gap: 4px;
+    background: #051e33;
+    margin: 0;
+    color: #e5e7eb;
+  }
+
+  .priority-option input:checked + label {
+    border-color: #39B54A;
+    background: #39B54A;
+    color: white;
+  }
+
+  .priority-option label .p-icon {
+    font-size: 16px;
+  }
+
+  .priority-option label .p-name {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .priority-option label .p-desc {
+    font-size: 11px;
+    color: #6b7280;
+    font-weight: 400;
+  }
+
+  .priority-option input:checked + label .p-desc {
+    color: rgba(255,255,255,0.75);
+  }
+
+  .divider {
+    height: 1px;
+    background: #0e4570;
+    margin: 20px 0;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    color: white;
+    background: #39B54A;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  }
+
+  .submit-btn:hover {
+    background: #2e9e3d;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .status-box {
+    display: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .status-box.loading {
+    display: block;
+    background: #083050;
+    color: #9ca3af;
+    border: 1px solid #0e4570;
+  }
+
+  .status-box.success {
+    display: block;
+    background: #0f2a0f;
+    color: #86efac;
+    border: 1px solid #166534;
+  }
+
+  .status-box.error {
+    display: block;
+    background: #2a0f0f;
+    color: #fca5a5;
+    border: 1px solid #991b1b;
+  }
+
+  .jira-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 14px;
+    background: #111111;
+    border: 1px solid #166534;
+    border-radius: 6px;
+    color: #86efac;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.1s;
+  }
+
+  .jira-link:hover {
+    background: #0f2a0f;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: #4b5563;
+    margin-top: 24px;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #0e4570;
+    border-top-color: #39B54A;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-right: 8px;
+    vertical-align: -2px;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 480px) {
+    .two-col { grid-template-columns: 1fr; }
+    .priority-grid { grid-template-columns: repeat(3, 1fr); }
+    body { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo-bar">
+      <div class="logo-mark">BTG</div>
+      <div class="logo-text">Bend-tech Group <span>/ Marketing</span></div>
+    </div>
+    <h1>Marketing request</h1>
+    <p class="subtitle">Submit a job to the marketing team. Your request goes straight into Jira.</p>
+  </div>
+
+  <div id="statusBox" class="status-box"></div>
+
+  <form id="requestForm">
+
+    <div class="card">
+      <div class="section-label">Your details</div>
+      <div class="two-col">
+        <div class="field">
+          <label for="name">Your name <span class="req">*</span></label>
+          <input type="text" id="name" placeholder="e.g. Sarah Jones" required>
+        </div>
+        <div class="field">
+          <label for="email">Your email <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="you@bend-tech.com.au" required>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label for="division">Division <span class="req">*</span></label>
+          <select id="division" required>
+            <option value="">Select division</option>
+            <option value="ROX Australia">ROX Australia</option>
+            <option value="Grizzly">Grizzly</option>
+            <option value="CDEC">CDEC</option>
+            <option value="BT Metals">BT Metals</option>
+            <option value="Bend-tech Group">Bend-tech Group (cross-division)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="department">Your team <span class="req">*</span></label>
+          <select id="department" required>
+            <option value="">Select team</option>
+            <option value="Sales">Sales</option>
+            <option value="Operations">Operations</option>
+            <option value="Engineering / R&D">Engineering / R&D</option>
+            <option value="Leadership">Leadership</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">The job</div>
+
+      <div class="field">
+        <label for="jobType">Type of request <span class="req">*</span></label>
+        <select id="jobType" required>
+          <option value="">Select type</option>
+          <optgroup label="Design">
+            <option value="Design — Brochure / flyer">Brochure / flyer</option>
+            <option value="Design — Social media asset">Social media asset</option>
+            <option value="Design — Banner / signage">Banner / signage</option>
+            <option value="Design — Email template">Email template</option>
+            <option value="Design — Presentation">Presentation</option>
+            <option value="Design — Other">Other design</option>
+          </optgroup>
+          <optgroup label="Content">
+            <option value="Content — Copywriting">Copywriting</option>
+            <option value="Content — Blog / article">Blog / article</option>
+            <option value="Content — Video brief">Video brief</option>
+            <option value="Content — Product description">Product description</option>
+          </optgroup>
+          <optgroup label="Digital">
+            <option value="Digital — Website update">Website update</option>
+            <option value="Digital — EDM / campaign">EDM / campaign</option>
+            <option value="Digital — Ad campaign">Ad campaign</option>
+            <option value="Digital — SEO">SEO</option>
+          </optgroup>
+          <optgroup label="Events & Print">
+            <option value="Events — Tradeshow support">Tradeshow support</option>
+            <option value="Print — Merchandise">Merchandise</option>
+            <option value="Print — Uniforms / stickers">Uniforms / stickers</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option value="Other">Other</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="title">Request title <span class="req">*</span></label>
+        <input type="text" id="title" placeholder="Short description of what you need" required>
+      </div>
+
+      <div class="field">
+        <label for="description">What do you need? <span class="req">*</span> <span class="hint">More detail = faster turnaround</span></label>
+        <textarea id="description" placeholder="Describe the job. Include key messages, target audience, format, dimensions, any reference links, and what you want people to feel or do after seeing it." required></textarea>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label>Priority <span class="req">*</span></label>
+        <div class="priority-grid">
+          <div class="priority-option">
+            <input type="radio" name="priority" id="pLow" value="Low">
+            <label for="pLow">
+              <span class="p-icon">&#9711;</span>
+              <span class="p-name">Low</span>
+              <span class="p-desc">No deadline</span>
+            </label>
+          </div>
+          <div class="priority-option">
+            <input type="radio" name="priority" id="pMed" value="Medium" checked>
+            <label for="pMed">
+              <span class="p-icon">&#9651;</span>
+              <span class="p-name">Medium</span>
+              <span class="p-desc">Within 2 weeks</span>
+            </label>
+          </div>
+          <div class="priority-option">
+            <input type="radio" name="priority" id="pHigh" value="High">
+            <label for="pHigh">
+              <span class="p-icon">&#9650;</span>
+              <span class="p-name">High</span>
+              <span class="p-desc">Within 1 week</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label for="deadline">Deadline <span class="hint">optional</span></label>
+          <input type="text" id="deadline" placeholder="e.g. 30 May 2026">
+        </div>
+        <div class="field">
+          <label for="budget">Budget approved <span class="hint">optional</span></label>
+          <input type="text" id="budget" placeholder="e.g. $500, or TBC">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="assets">Existing assets / references <span class="hint">optional</span></label>
+        <textarea id="assets" style="min-height: 70px;" placeholder="List any links, shared files, or references. Include SharePoint / Google Drive links if applicable."></textarea>
+      </div>
+
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Submit request</button>
+
+  </form>
+
+  <p class="footer-note">Submitted requests land in Jira as a new task in Marketing Universe. You'll receive a confirmation with the issue link.</p>
+
+</div>
+
+<script>
+  const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
+  const API_KEY = "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";
+
+  const form = document.getElementById("requestForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusBox = document.getElementById("statusBox");
+
+  function setStatus(type, html) {
+    statusBox.className = "status-box " + type;
+    statusBox.innerHTML = html;
+    statusBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const division = document.getElementById("division").value;
+    const department = document.getElementById("department").value;
+    const jobType = document.getElementById("jobType").value;
+    const title = document.getElementById("title").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const priority = document.querySelector('input[name="priority"]:checked').value;
+    const deadline = document.getElementById("deadline").value.trim();
+    const budget = document.getElementById("budget").value.trim();
+    const assets = document.getElementById("assets").value.trim();
+
+    submitBtn.disabled = true;
+    setStatus("loading", '<span class="spinner"></span> Submitting your request to Jira...');
+
+    const prompt = `You are a Jira automation assistant for Bend-tech Group's marketing team.
+
+A marketing job request has been submitted. Your task is to create a Jira issue in the MKT project using the Atlassian MCP tools.
+
+Here are the details:
+- Requester: ${name} (${email})
+- Division: ${division}
+- Requester's team: ${department}
+- Request type: ${jobType}
+- Title: ${title}
+- Description: ${description}
+- Priority: ${priority}
+- Deadline: ${deadline || "Not specified"}
+- Budget: ${budget || "Not specified"}
+- Assets/References: ${assets || "None provided"}
+
+Create a Jira issue in the MKT project with:
+- Issue type: Task
+- Summary: [${division}] ${title}
+- Priority: ${priority}
+- Description (formatted clearly in ADF): Include all the details above, structured with clear sections for Requester, Division, Job Type, Description, Deadline, Budget, and Assets. Make it easy to read for the marketing team.
+
+After creating the issue, respond ONLY with a JSON object in this exact format, no other text:
+{"success": true, "issueKey": "MKT-XXX", "issueUrl": "https://btgmarketing.atlassian.net/browse/MKT-XXX"}
+
+If there is an error, respond ONLY with:
+{"success": false, "error": "brief description of what went wrong"}`;
+
+    try {
+      const response = await fetch(ANTHROPIC_API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true"
+        },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          mcp_servers: [
+            {
+              type: "url",
+              url: "https://mcp.atlassian.com/v1/mcp",
+              name: "atlassian-rovo"
+            }
+          ],
+          messages: [{ role: "user", content: prompt }]
+        })
+      });
+
+      const data = await response.json();
+
+      let resultText = "";
+      if (data.content) {
+        for (const block of data.content) {
+          if (block.type === "text") {
+            resultText += block.text;
+          }
+        }
+      }
+
+      let result;
+      try {
+        const clean = resultText.replace(/```json|```/g, "").trim();
+        const jsonMatch = clean.match(/\{[\s\S]*\}/);
+        result = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+      } catch (e) {
+        result = null;
+      }
+
+      if (result && result.success) {
+        setStatus("success", `
+          <strong>Request submitted.</strong> Your job has been added to the marketing queue.<br><br>
+          <a class="jira-link" href="${result.issueUrl}" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View ${result.issueKey} in Jira
+          </a>
+        `);
+        form.reset();
+        document.querySelector('input[name="priority"][value="Medium"]').checked = true;
+      } else {
+        throw new Error(result?.error || "Unexpected response from API.");
+      }
+
+    } catch (err) {
+      setStatus("error", `<strong>Something went wrong.</strong> ${err.message || "Please try again or contact the marketing team directly."}`);
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
