@@ -355,23 +355,25 @@
 
   <div id="statusBox" class="status-box"></div>
 
-  <form id="requestForm">
+  <form id="requestForm" name="marketing-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="marketing-request">
+    <p style="display:none"><input name="bot-field"></p>
 
     <div class="card">
       <div class="section-label">Your details</div>
       <div class="two-col">
         <div class="field">
           <label for="name">Your name <span class="req">*</span></label>
-          <input type="text" id="name" placeholder="e.g. Sarah Jones" required>
+          <input type="text" id="name" name="name" placeholder="e.g. Sarah Jones" required>
         </div>
         <div class="field">
           <label for="email">Your email <span class="req">*</span></label>
-          <input type="email" id="email" placeholder="you@bend-tech.com.au" required>
+          <input type="email" id="email" name="email" placeholder="you@bend-tech.com.au" required>
         </div>
       </div>
       <div class="field">
         <label for="division">Division <span class="req">*</span></label>
-        <select id="division" required>
+        <select id="division" name="division" required>
           <option value="">Select division</option>
           <option value="ROX Australia">ROX Australia</option>
           <option value="Grizzly">Grizzly</option>
@@ -387,7 +389,7 @@
 
       <div class="field">
         <label for="jobType">Type of request <span class="req">*</span></label>
-        <select id="jobType" required>
+        <select id="jobType" name="job-type" required>
           <option value="">Select type</option>
           <optgroup label="Design">
             <option value="Design — Brochure / flyer">Brochure / flyer</option>
@@ -422,12 +424,12 @@
 
       <div class="field">
         <label for="title">Request title <span class="req">*</span></label>
-        <input type="text" id="title" placeholder="Short description of what you need" required>
+        <input type="text" id="title" name="title" placeholder="Short description of what you need" required>
       </div>
 
       <div class="field">
         <label for="description">What do you need? <span class="req">*</span> <span class="hint">More detail = faster turnaround</span></label>
-        <textarea id="description" placeholder="Describe the job. Include key messages, target audience, format, dimensions, any reference links, and what you want people to feel or do after seeing it." required></textarea>
+        <textarea id="description" name="description" placeholder="Describe the job. Include key messages, target audience, format, dimensions, any reference links, and what you want people to feel or do after seeing it." required></textarea>
       </div>
 
       <div class="divider"></div>
@@ -465,17 +467,17 @@
       <div class="two-col">
         <div class="field">
           <label for="deadline">Deadline <span class="hint">optional</span></label>
-          <input type="text" id="deadline" placeholder="e.g. 30 May 2026">
+          <input type="text" id="deadline" name="deadline" placeholder="e.g. 30 May 2026">
         </div>
         <div class="field">
           <label for="budget">Budget approved <span class="hint">optional</span></label>
-          <input type="text" id="budget" placeholder="e.g. $500, or TBC">
+          <input type="text" id="budget" name="budget" placeholder="e.g. $500, or TBC">
         </div>
       </div>
 
       <div class="field">
         <label for="assets">Existing assets / references <span class="hint">optional</span></label>
-        <textarea id="assets" style="min-height: 70px;" placeholder="List any links, shared files, or references. Include SharePoint / Google Drive links if applicable."></textarea>
+        <textarea id="assets" name="assets" style="min-height: 70px;" placeholder="List any links, shared files, or references. Include SharePoint / Google Drive links if applicable."></textarea>
       </div>
 
     </div>
@@ -484,14 +486,11 @@
 
   </form>
 
-  <p class="footer-note">Submitted requests land in Jira as a new task in Marketing Universe. You'll receive a confirmation with the issue link.</p>
+  <p class="footer-note">Submitted requests are sent to the marketing team at marketing@bendtechgroup.com.au</p>
 
 </div>
 
 <script>
-  const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
-  const API_KEY = "";
-
   const form = document.getElementById("requestForm");
   const submitBtn = document.getElementById("submitBtn");
   const statusBox = document.getElementById("statusBox");
@@ -499,112 +498,37 @@
   function setStatus(type, html) {
     statusBox.className = "status-box " + type;
     statusBox.innerHTML = html;
+    statusBox.style.display = "block";
     statusBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const division = document.getElementById("division").value;
-    const jobType = document.getElementById("jobType").value;
-    const title = document.getElementById("title").value.trim();
-    const description = document.getElementById("description").value.trim();
-    const priority = document.querySelector('input[name="priority"]:checked').value;
-    const deadline = document.getElementById("deadline").value.trim();
-    const budget = document.getElementById("budget").value.trim();
-    const assets = document.getElementById("assets").value.trim();
-
     submitBtn.disabled = true;
-    setStatus("loading", '<span class="spinner"></span> Submitting your request to Jira...');
+    setStatus("loading", '<span class="spinner"></span> Submitting your request...');
 
-    const prompt = `You are a Jira automation assistant for Bend-tech Group's marketing team.
-
-A marketing job request has been submitted. Your task is to create a Jira issue in the MKT project using the Atlassian MCP tools.
-
-Here are the details:
-- Requester: ${name} (${email})
-- Division: ${division}
-- Request type: ${jobType}
-- Title: ${title}
-- Description: ${description}
-- Priority: ${priority}
-- Deadline: ${deadline || "Not specified"}
-- Budget: ${budget || "Not specified"}
-- Assets/References: ${assets || "None provided"}
-
-Create a Jira issue in the MKT project with:
-- Issue type: Task
-- Summary: [${division}] ${title}
-- Priority: ${priority}
-- Description (formatted clearly in ADF): Include all the details above, structured with clear sections for Requester, Division, Job Type, Description, Deadline, Budget, and Assets. Make it easy to read for the marketing team.
-
-After creating the issue, respond ONLY with a JSON object in this exact format, no other text:
-{"success": true, "issueKey": "MKT-XXX", "issueUrl": "https://btgmarketing.atlassian.net/browse/MKT-XXX"}
-
-If there is an error, respond ONLY with:
-{"success": false, "error": "brief description of what went wrong"}`;
+    const formData = new FormData(form);
 
     try {
-      const response = await fetch(ANTHROPIC_API, {
+      const response = await fetch("/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true"
-        },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          mcp_servers: [
-            {
-              type: "url",
-              url: "https://mcp.atlassian.com/v1/mcp",
-              name: "atlassian-rovo"
-            }
-          ],
-          messages: [{ role: "user", content: prompt }]
-        })
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString()
       });
 
-      const data = await response.json();
-
-      let resultText = "";
-      if (data.content) {
-        for (const block of data.content) {
-          if (block.type === "text") {
-            resultText += block.text;
-          }
-        }
-      }
-
-      let result;
-      try {
-        const clean = resultText.replace(/```json|```/g, "").trim();
-        const jsonMatch = clean.match(/\{[\s\S]*\}/);
-        result = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
-      } catch (e) {
-        result = null;
-      }
-
-      if (result && result.success) {
+      if (response.ok) {
         setStatus("success", `
-          <strong>Request submitted.</strong> Your job has been added to the marketing queue.<br><br>
-          <a class="jira-link" href="${result.issueUrl}" target="_blank">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            View ${result.issueKey} in Jira
-          </a>
+          <strong>Request submitted.</strong> The marketing team has been notified and will be in touch shortly.
         `);
         form.reset();
         document.querySelector('input[name="priority"][value="Medium"]').checked = true;
       } else {
-        throw new Error(result?.error || "Unexpected response from API.");
+        throw new Error("Server returned an error. Please try again.");
       }
 
     } catch (err) {
-      setStatus("error", `<strong>Something went wrong.</strong> ${err.message || "Please try again or contact the marketing team directly."}`);
+      setStatus("error", `<strong>Something went wrong.</strong> ${err.message || "Please try again or email marketing@bendtechgroup.com.au directly."}`);
     } finally {
       submitBtn.disabled = false;
     }
